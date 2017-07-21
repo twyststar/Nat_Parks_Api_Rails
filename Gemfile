@@ -7,6 +7,7 @@ end
 
 gem 'rb-readline'
 gem 'ffaker'
+gem 'faker'
 gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
