@@ -8,7 +8,11 @@
       @parks = Park.all
       if params[:name]
         name = params[:name]
-        @parks = Park.search(name)
+        @parks = Park.search_name(name)
+      end
+      if params[:location]
+        location = params[:location]
+        @parks = Park.search_location(location)
       end
       if params[:random]
         number= params[:random].to_i
