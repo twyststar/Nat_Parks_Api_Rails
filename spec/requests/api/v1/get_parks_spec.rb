@@ -18,4 +18,20 @@ describe Api::V1::ParksController do
     end
   end
 
+  describe "return errors when request doesn't match requirements", :type => :request do
+    it 'returns a not_found error when park doesnt exist' do
+      quote = FactoryGirl.create(:park)
+      get '/api/v1/parks/0'
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe "get a single park route", :type => :request do
+  it 'returns a single park' do
+    park = FactoryGirl.create(:park)
+    get "/api/v1/parks/#{park.id}"
+    expect(response).to be_success
+    expect(JSON.parse(response.body)['name']).to eq(park.name)
+  end
+end
 end

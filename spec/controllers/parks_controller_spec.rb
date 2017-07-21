@@ -29,22 +29,26 @@ RSpec.describe Api::V1::ParksController, type: :controller do
   # Park. As you add validations to Park, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: 'String',
+    description: 'String',
+    location: 'String'}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: nil,
+    description: nil,
+    location: nil }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ParksController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  # let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
       park = Park.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(response).to be_success
     end
   end
@@ -52,7 +56,7 @@ RSpec.describe Api::V1::ParksController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       park = Park.create! valid_attributes
-      get :show, params: {id: park.to_param}, session: valid_session
+      get :show, params: {id: park.to_param}
       expect(response).to be_success
     end
   end
@@ -61,13 +65,13 @@ RSpec.describe Api::V1::ParksController, type: :controller do
     context "with valid params" do
       it "creates a new Park" do
         expect {
-          post :create, params: {park: valid_attributes}, session: valid_session
+          post :create, params: {park: valid_attributes}
         }.to change(Park, :count).by(1)
       end
 
       it "renders a JSON response with the new park" do
 
-        post :create, params: {park: valid_attributes}, session: valid_session
+        post :create, params: {park: valid_attributes}
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(park_url(Park.last))
@@ -77,7 +81,7 @@ RSpec.describe Api::V1::ParksController, type: :controller do
     context "with invalid params" do
       it "renders a JSON response with errors for the new park" do
 
-        post :create, params: {park: invalid_attributes}, session: valid_session
+        post :create, params: {park: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -87,12 +91,14 @@ RSpec.describe Api::V1::ParksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'String2',
+        description: 'String2',
+        location: 'String2'}
       }
 
       it "updates the requested park" do
         park = Park.create! valid_attributes
-        put :update, params: {id: park.to_param, park: new_attributes}, session: valid_session
+        put :update, params: {id: park.to_param, park: new_attributes}
         park.reload
         skip("Add assertions for updated state")
       end
@@ -100,7 +106,7 @@ RSpec.describe Api::V1::ParksController, type: :controller do
       it "renders a JSON response with the park" do
         park = Park.create! valid_attributes
 
-        put :update, params: {id: park.to_param, park: valid_attributes}, session: valid_session
+        put :update, params: {id: park.to_param, park: valid_attributes}
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +116,7 @@ RSpec.describe Api::V1::ParksController, type: :controller do
       it "renders a JSON response with errors for the park" do
         park = Park.create! valid_attributes
 
-        put :update, params: {id: park.to_param, park: invalid_attributes}, session: valid_session
+        put :update, params: {id: park.to_param, park: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,7 +127,7 @@ RSpec.describe Api::V1::ParksController, type: :controller do
     it "destroys the requested park" do
       park = Park.create! valid_attributes
       expect {
-        delete :destroy, params: {id: park.to_param}, session: valid_session
+        delete :destroy, params: {id: park.to_param}
       }.to change(Park, :count).by(-1)
     end
   end

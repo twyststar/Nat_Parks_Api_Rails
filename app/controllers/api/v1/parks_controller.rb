@@ -6,6 +6,10 @@
     # GET /parks.json
     def index
       @parks = Park.all
+      if params[:name]
+        name = params[:name]
+        @parks = Park.search(name)
+      end
       json_response(@parks)
     end
 
@@ -31,7 +35,12 @@
         render status: 200, json: {
         message: "Your park has successfully been updated."
         }
+      else
+        render status: 422, json: {
+        message: "Missing or invalid parameters."
+        }
       end
+
     end
 
     # DELETE /parks/1
