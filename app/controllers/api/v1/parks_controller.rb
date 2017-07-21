@@ -12,7 +12,8 @@
     # GET /parks/1
     # GET /parks/1.json
     def show
-
+      @park = Park.find(params[:id])
+    json_response(@park)
     end
 
     # POST /parks
