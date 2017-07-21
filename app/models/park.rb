@@ -5,13 +5,6 @@ class Park < ApplicationRecord
 
   scope :search, -> (name_parameter) { where("lower(name) like ?", "%#{name_parameter.downcase}%")}
 
-
-    # def self.random
-    #   if (c = count) != 0
-    #     find(:first, :offset =>rand(c))
-    #   end
-    # end
-
-
+  scope :random, -> (number_parameter) {Park.all.sample(number_parameter)}
 
 end
