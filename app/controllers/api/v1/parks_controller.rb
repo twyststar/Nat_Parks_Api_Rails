@@ -20,22 +20,20 @@
     # POST /parks.json
     def create
       @park = Park.create(park_params)
-     json_response(@park)
+      json_response(@park)
     end
 
     # PATCH/PUT /parks/1
     # PATCH/PUT /parks/1.json
     def update
-      if @park.update(park_params)
-        render :show, status: :ok, location: @park
-      else
-        render json: @park.errors, status: :unprocessable_entity
-      end
+      @park = Park.find(params[:id])
+      @park.update(park_params)
     end
 
     # DELETE /parks/1
     # DELETE /parks/1.json
     def destroy
+      @park = Park.find(params[:id])
       @park.destroy
     end
 
@@ -43,9 +41,6 @@
       # Use callbacks to share common setup or constraints between actions.
       def set_park
         @park = Park.find(params[:id])
-      end
-      def json_response(object, status = :ok)
-        render json: object, status: status
       end
       # Never trust parameters from the scary internet, only allow the white list through.
       def park_params
