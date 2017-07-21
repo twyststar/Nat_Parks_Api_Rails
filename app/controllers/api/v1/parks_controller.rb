@@ -1,11 +1,12 @@
-module Api::v1
-  class ParksController < ApplicationController
+
+  class Api::V1::ParksController < ApplicationController
     before_action :set_park, only: [:show, :update, :destroy]
 
     # GET /parks
     # GET /parks.json
     def index
       @parks = Park.all
+      json_response(@parks)
     end
 
     # GET /parks/1
@@ -47,10 +48,11 @@ module Api::v1
       def set_park
         @park = Park.find(params[:id])
       end
-
+      def json_response(object, status = :ok)
+        render json: object, status: status
+      end
       # Never trust parameters from the scary internet, only allow the white list through.
       def park_params
         params.require(:park).permit(:name, :description, :location)
       end
   end
-end
