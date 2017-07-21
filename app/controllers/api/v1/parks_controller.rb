@@ -19,7 +19,7 @@
     # POST /parks
     # POST /parks.json
     def create
-      @park = Park.create(park_params)
+      @park = Park.create!(park_params)
       json_response(@park)
     end
 
