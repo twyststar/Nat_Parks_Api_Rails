@@ -20,21 +20,30 @@
     # POST /parks.json
     def create
       @park = Park.create!(park_params)
-      json_response(@park)
+      json_response(@park, :created)
     end
 
     # PATCH/PUT /parks/1
     # PATCH/PUT /parks/1.json
     def update
       @park = Park.find(params[:id])
-      @park.update(park_params)
+      if @park.update!(park_params)
+        render status: 200, json: {
+        message: "Your park has successfully been updated."
+        }
+      end
     end
 
     # DELETE /parks/1
     # DELETE /parks/1.json
     def destroy
       @park = Park.find(params[:id])
-      @park.destroy
+
+      if @park.destroy!
+      render status: 200, json: {
+        message: "Your park has been successfully deleted."
+      }
+    end
     end
 
     private
