@@ -27,11 +27,11 @@ describe Api::V1::ParksController do
   end
 
   describe "get a single park route", :type => :request do
-  it 'returns a single park' do
-    park = FactoryGirl.create(:park)
-    get "/api/v1/parks/#{park.id}"
-    expect(response).to be_success
-    expect(JSON.parse(response.body)['name']).to eq(park.name)
+    it 'returns a single park' do
+      park = FactoryGirl.create(:park)
+      get "/api/v1/parks/#{park.id}"
+      expect(response).to be_success
+      expect(JSON.parse(response.body)['name']).to eq(park.name)
+    end
   end
-end
 end
