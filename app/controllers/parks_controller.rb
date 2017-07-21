@@ -10,6 +10,7 @@ class ParksController < ApplicationController
   # GET /parks/1
   # GET /parks/1.json
   def show
+    
   end
 
   # POST /parks
