@@ -10,6 +10,10 @@
         name = params[:name]
         @parks = Park.search(name)
       end
+      if params[:random]
+        number= params[:random].to_i
+        @parks = Park.all.sample(number)
+      end
       json_response(@parks)
     end
 
