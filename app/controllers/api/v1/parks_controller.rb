@@ -13,19 +13,14 @@
     # GET /parks/1.json
     def show
       @park = Park.find(params[:id])
-    json_response(@park)
+      json_response(@park)
     end
 
     # POST /parks
     # POST /parks.json
     def create
-      @park = Park.new(park_params)
-
-      if @park.save
-        render :show, status: :created, location: @park
-      else
-        render json: @park.errors, status: :unprocessable_entity
-      end
+      @park = Park.create(park_params)
+     json_response(@park)
     end
 
     # PATCH/PUT /parks/1
@@ -54,6 +49,6 @@
       end
       # Never trust parameters from the scary internet, only allow the white list through.
       def park_params
-        params.require(:park).permit(:name, :description, :location)
+        params.permit(:name, :description, :location)
       end
   end
